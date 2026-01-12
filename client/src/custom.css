@@ -1618,6 +1618,19 @@ footer .bg-dark {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 20%;
+}
+
+/* Image sizing overrides for the Our Team layouts.
+   Prevent narrow portrait boxes from stretching to card height. */
+.team-member-image-wrapper.leadership-feature-image {
+  height: 360px;
+  min-height: 360px;
+}
+
+.team-member-image-wrapper.grid-image {
+  height: 160px;
+  min-height: 160px;
 }
 
 /* Placeholder shown while team member images load or when they fail */
@@ -1843,6 +1856,16 @@ footer .bg-dark {
     flex: auto;
     width: 100%;
     min-height: 260px;
+  }
+
+  .team-member-image-wrapper.leadership-feature-image {
+    height: 260px;
+    min-height: 260px;
+  }
+
+  .team-member-image-wrapper.grid-image {
+    height: 220px;
+    min-height: 220px;
   }
 }
 
