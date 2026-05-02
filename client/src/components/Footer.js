@@ -194,7 +194,7 @@ const Footer = () => {
           <div className="bg-dark d-flex align-items-center justify-content-center">
             <hr></hr>
             <p className="copyright mb-0">
-              ©2025 DeJure Advocates & Legal Consultants. All rights
+              ©2026 DeJure Advocates & Legal Consultants. All rights
               reserved.
             </p>
           </div>
