@@ -49,6 +49,17 @@ const ImageWithPlaceholder = ({ src, alt, name, className = "" }) => {
   );
 };
 
+const LinkedInIcon = ({ className = "" }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.6 0 4.266 2.369 4.266 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM6.986 20.452H3.688V9h3.298v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.727v20.545C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.273V1.727C24 .774 23.2 0 22.222 0z" />
+  </svg>
+);
+
 const stats = [
   { value: "40+", label: "Years guiding corporate, tax & litigation" },
   { value: "2 cities", label: "Integrated Islamabad & Lahore teams" },
@@ -159,10 +170,9 @@ const OurTeam = () => {
             </p>
           </div>
           <div className="row g-4">
-            {leadership.map((leader, index) => {
-              const shouldClampBio = index === 0 && leader.bio && leader.bio.length > 260;
-              const shouldClampFullBio = index === 1 && !!leader.fullBio;
-              const allowToggle = shouldClampBio || shouldClampFullBio;
+            {leadership.map((leader) => {
+              const shouldClampBio = leader.bio && leader.bio.length > 260;
+              const allowToggle = !!leader.fullBio;
               const isExpanded = !!expandedLeadership[leader.name];
               return (
                 <div className="col-12" key={leader.name}>
@@ -176,19 +186,37 @@ const OurTeam = () => {
                     <div className="leadership-feature-body">
                       <div className="role-label">{leader.title}</div>
                       <h3>{leader.name}</h3>
+                      {leader.positions && leader.positions.length > 0 && (
+                        <ul className="team-positions">
+                          {leader.positions.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      )}
                       <p className="leadership-snippet mb-3">
                         {shouldClampBio && !isExpanded ? truncateText(leader.bio, 260) : leader.bio}
                       </p>
-                      {leader.fullBio && shouldClampFullBio && (
-                        <p className={`text-muted ${!isExpanded ? "line-clamp-2" : ""}`}>{leader.fullBio}</p>
-                      )}
-                      {leader.fullBio && !shouldClampFullBio && (isExpanded || !shouldClampBio) && (
-                        <p className="text-muted">{leader.fullBio}</p>
-                      )}
-                      {allowToggle && (
-                        <button className="text-link" onClick={() => toggleLeadership(leader.name)}>
-                          {isExpanded ? "Show less" : "Read more"}
-                        </button>
+                      {leader.fullBio && isExpanded && <p className="text-muted">{leader.fullBio}</p>}
+                      {(allowToggle || leader.linkedinUrl) && (
+                        <div className="team-card-actions">
+                          {allowToggle && (
+                            <button className="text-link" onClick={() => toggleLeadership(leader.name)}>
+                              {isExpanded ? "Show less" : "Read more"}
+                            </button>
+                          )}
+                          {leader.linkedinUrl && (
+                            <a
+                              className="text-link team-profile-link"
+                              href={leader.linkedinUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              aria-label={`Visit ${leader.name} on LinkedIn`}
+                            >
+                              <LinkedInIcon className="team-linkedin-icon" />
+                              LinkedIn
+                            </a>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>
@@ -224,14 +252,37 @@ const OurTeam = () => {
                   <div className="team-grid-card-body">
                     <div className="role-label">{member.title}</div>
                     <h4>{member.name}</h4>
+                    {member.positions && member.positions.length > 0 && (
+                      <ul className="team-positions">
+                        {member.positions.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    )}
                     <p>{member.bio}</p>
                     {member.fullBio && expandedBio === member.name && (
                       <p className="text-muted small mb-0">{member.fullBio}</p>
                     )}
-                    {member.fullBio && (
-                      <button className="text-link" onClick={() => toggleBio(member.name)}>
-                        {expandedBio === member.name ? "Show less" : "Read more"}
-                      </button>
+                    {(member.fullBio || member.linkedinUrl) && (
+                      <div className="team-card-actions">
+                        {member.fullBio && (
+                          <button className="text-link" onClick={() => toggleBio(member.name)}>
+                            {expandedBio === member.name ? "Show less" : "Read more"}
+                          </button>
+                        )}
+                        {member.linkedinUrl && (
+                          <a
+                            className="text-link team-profile-link"
+                            href={member.linkedinUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={`Visit ${member.name} on LinkedIn`}
+                          >
+                            <LinkedInIcon className="team-linkedin-icon" />
+                            LinkedIn
+                          </a>
+                        )}
+                      </div>
                     )}
                   </div>
                 </div>

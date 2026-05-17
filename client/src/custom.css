@@ -1918,6 +1918,48 @@ footer .bg-dark {
   text-decoration: underline;
 }
 
+.team-card-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.team-profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.team-linkedin-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.team-positions {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: rgba(24, 24, 24, 0.72);
+  font-size: 0.92rem;
+}
+
+.team-positions li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.team-positions li::before {
+  content: "•";
+  color: var(--color-accent);
+  margin-top: 0.1rem;
+}
+
 .team-grid-section {
   padding: 4rem 0;
   background: #fff;
