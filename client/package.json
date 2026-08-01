@@ -2,8 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "engines": {
-    "npm": "8.19.3",
-    "node": "16.15.1"
+    "node": ">=18"
   },
   "private": true,
   "dependencies": {

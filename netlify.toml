@@ -7,9 +7,24 @@
   command = "npm run build"
 
 [build.environment]
-  NODE_VERSION = "16.15.1"
-  NPM_VERSION = "8.19.3"
+  # Node 16 is EOL and is no longer installable on Netlify's Ubuntu Noble build
+  # image, which would fail the build outright. Node 20 LTS builds this app fine.
+  NODE_VERSION = "20"
+  # CI=false keeps CRA from treating lint warnings as build errors.
   CI = "false"
+
+# Long-cache the fingerprinted CRA bundles; they get a new filename on every build.
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
 
 # Ensure single-page app routing works correctly
 [[redirects]]
